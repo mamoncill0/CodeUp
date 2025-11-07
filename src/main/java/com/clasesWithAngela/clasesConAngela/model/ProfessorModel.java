@@ -23,5 +23,5 @@ public class ProfessorModel {
     private String subjects;
 
     @OneToMany(mappedBy = "professor", cascade = CascadeType.ALL)
-    private Set<CursesModel> enrollments;
+    private Set<CursesModel> curses;
 }
