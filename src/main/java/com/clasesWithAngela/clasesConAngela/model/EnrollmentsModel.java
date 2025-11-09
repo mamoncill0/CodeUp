@@ -1,5 +1,6 @@
 package com.clasesWithAngela.clasesConAngela.model;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -15,12 +16,14 @@ public class EnrollmentsModel {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
 
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "id_student")
+    @JsonBackReference("student-enrollments")
     private StudentModel student;
 
-    @ManyToOne
-    @JoinColumn(name = "id_curses")
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "id_curse")
+    @JsonBackReference("curses-enrollments")
     private CursesModel curses;
 
     private double note_student;

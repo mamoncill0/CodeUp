@@ -1,8 +1,11 @@
 package com.clasesWithAngela.clasesConAngela.model;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;
+import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
 
 import java.util.Set;
@@ -11,10 +14,12 @@ import java.util.Set;
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
+@EqualsAndHashCode(onlyExplicitlyIncluded = true)
 @Table(name = "curses")
 public class CursesModel {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @EqualsAndHashCode.Include
     private int id;
 
     private String nameCurse;
@@ -25,6 +30,7 @@ public class CursesModel {
     @JoinColumn(name = "id_professor")
     private ProfessorModel professor;
 
-    @OneToMany(mappedBy = "curses", cascade = CascadeType.ALL)
+    @OneToMany(mappedBy = "curses", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    @JsonBackReference("curses-enrollments")
     private Set<EnrollmentsModel> enrollments;
 }

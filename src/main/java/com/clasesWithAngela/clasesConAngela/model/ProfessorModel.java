@@ -1,5 +1,6 @@
 package com.clasesWithAngela.clasesConAngela.model;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -23,5 +24,8 @@ public class ProfessorModel {
     private String subjects;
 
     @OneToMany(mappedBy = "professor", cascade = CascadeType.ALL)
+
+    //Este seria el hijo, aca es donde se devuelve lo del Managed
+    @JsonBackReference
     private Set<CursesModel> curses;
 }
